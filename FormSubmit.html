@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submit</title>
+</head>
+<body>
+    <form id="form">
+        <label for="name">Name</label>
+        <input type="text" placeholder="Enter name"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+<script>
+    var form=document.querySelector("#form")
+    form.addEventListener("submit",alertFunction)
+    function alertFunction(event){
+        event.preventDefault();
+        var name =event.target[0].value;
+        if(name===""){
+            alert("Enter name");
+        }
+        else{
+            alert(name);
+        }
+    }
+</script>
