@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Todo</title>
+    <style>
+    </style>
+</head>
+<body>
+    <form id="form">
+        <label for="title">Title</label>
+        <input type="text" placeholder="Enter title"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <table>
+        <tbody>
+            
+        </tbody>
+    </table>
+</body>
+</html>
+<script>
+    var body=document.querySelector("body");
+    var form=document.querySelector("#form");
+    var todos=[];
+    var count=0;
+    var input_box;
+    form.addEventListener("submit",alertFunction)
+    function alertFunction(event){
+        event.preventDefault();
+        var title =event.target[0].value;
+        if(title===""){
+            alert("Enter Title");
+            return;
+        }
+        else{
+            count++;
+            todos.push([title+count,false,title]);
+        }
+        var line_break=document.createElement("br")
+        input_box = document.createElement("INPUT")
+        input_box.setAttribute("type", "checkbox");
+        input_box.checked=false;
+        var tr=document.createElement("tr");
+        var td=document.createElement("td");
+        var td2=document.createElement("td");
+        var btn=document.createElement("button");
+        btn.textContent="DELETE"
+        td.textContent= todos[count-1][2];
+        td2.append(input_box);
+        tr.append(td,td2,btn);
+        document.querySelector("tbody").append(tr);
+        input_box.addEventListener("click",strikeFun);
+        btn.addEventListener("click",deleteItem);
+    }
+    function strikeFun(){
+      var targetBox=event.target;
+      if(targetBox.checked===true)
+      {
+          var targetRow=event.target.parentNode.previousSibling ;
+          targetRow.style.color="green"
+          targetRow.style.textDecoration="line-through"
+
+      }
+      else{
+        var targetRow=event.target.parentNode.previousSibling ;
+          targetRow.style.color="black"
+          targetRow.style.textDecoration="none"
+      }
+    }
+    function deleteItem(){
+        var deleteRow=event.target.parentNode;
+        deleteRow.remove();
+        var deleteItem=event.target.previousSibling.previousSibling.innerHTML;
+        for(var i=0;i<todos.length;i++)
+        {
+            if(todos[i][2]===deleteItem)
+            {
+                console.log(i);
+                todos.splice(i,1);
+            }
+        }
+    }
+</script>
