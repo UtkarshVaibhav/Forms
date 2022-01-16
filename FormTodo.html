@@ -1,0 +1,85 @@
+<!--
+Done--- create a form
+Done--- add one input tag with title
+Done--- add an event listener for form submit ( do not add event listener to the submit button, instead add on form )
+Done--- do not add an id on input tag, access using event.target
+Done--- on submit add the title to a global array called todos
+Done---each item should contain, id ( some unique id, do not use array index ), status ( boolean ), title
+after adding to the todos array
+Done---create the list of items in your html
+Done---each item, should have name, and a checkbox on it
+on click of the checkbox, the checkbox should be ticked, and add a line through for the text and change color to green
+user should be able to toggle this
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Todo</title>
+    <style>
+    </style>
+</head>
+<body>
+    <form id="form">
+        <label for="title">Title</label>
+        <input type="text" placeholder="Enter title"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <table>
+        <tbody>
+            
+        </tbody>
+    </table>
+</body>
+</html>
+<script>
+    var body=document.querySelector("body");
+    var form=document.querySelector("#form");
+    var todos=[];
+    var count=0;
+    var input_box;
+    form.addEventListener("submit",alertFunction)
+    function alertFunction(event){
+        event.preventDefault();
+        var title =event.target[0].value;
+        if(title===""){
+            alert("Enter Title");
+            return;
+        }
+        else{
+            count++;
+            todos.push([title+count,false,title]);
+        }
+        var line_break=document.createElement("br")
+        input_box = document.createElement("INPUT")
+        input_box.setAttribute("type", "checkbox");
+        input_box.checked=false;
+        var tr=document.createElement("tr");
+        var td=document.createElement("td");
+        var td2=document.createElement("td")
+        td.textContent= todos[count-1][2];
+        td2.append(input_box);
+        tr.append(td,td2);
+        document.querySelector("tbody").append(tr);
+        input_box.addEventListener("click",strikeFun);
+    }
+    function strikeFun(){
+      var targetBox=event.target;
+      if(targetBox.checked===true)
+      {
+          var targetRow=event.target.parentNode.previousSibling ;
+          targetRow.style.color="green"
+          targetRow.style.textDecoration="line-through"
+
+      }
+      else{
+        var targetRow=event.target.parentNode.previousSibling ;
+          targetRow.style.color="black"
+          targetRow.style.textDecoration="none"
+      }
+    }
+
+</script>
